@@ -1,0 +1,79 @@
+/* ===================================
+   APP COMPONENT STYLES
+   =================================== */
+
+.app {
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.main-content {
+  padding-top: 80px;
+  /* Account for fixed header */
+}
+
+/* Section Styles */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) 0;
+  position: relative;
+}
+
+.section--hero {
+  background: var(--gradient-overlay),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2306b6d4" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+  background-size: cover;
+  background-position: center;
+  color: var(--white);
+  text-align: center;
+}
+
+.section--alt {
+  background: var(--gray-50);
+}
+
+/* Hero Section */
+.hero-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 400;
+  color: var(--gray-200);
+  margin-top: var(--spacing-md);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 70px;
+  }
+
+  .section {
+    min-height: auto;
+    padding: var(--spacing-xl) 0;
+  }
+
+  .section--hero {
+    min-height: 100vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding-top: 60px;
+  }
+}

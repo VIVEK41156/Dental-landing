@@ -1,0 +1,284 @@
+/* Process Flow Section */
+.process-section {
+    position: relative;
+    padding: 100px 0;
+    min-height: 1400px;
+    /* Blended Background */
+    background-color: #f8fafc;
+    background-image:
+        linear-gradient(to bottom, rgba(248, 250, 252, 0.9), rgba(248, 250, 252, 0.95)),
+        url('../assets/process-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* Parallax feel */
+    background-blend-mode: overlay;
+    overflow: hidden;
+}
+
+.process-header {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 50px;
+    color: #0f172a;
+    position: relative;
+    z-index: 2;
+}
+
+.gradient-text-process {
+    background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.process-container {
+    position: relative;
+    max-width: 1000px;
+    /* Constrained width for the snake */
+    margin: 0 auto;
+    height: 1200px;
+}
+
+/* SVG Container - The Track */
+.svg-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Cards positioning */
+.process-step {
+    position: absolute;
+    width: 45%;
+    max-width: 400px;
+    z-index: 1;
+}
+
+.step-left {
+    left: 0;
+    padding-right: 50px;
+    text-align: right;
+}
+
+.step-left .process-card {
+    /* Align flex items to right for left steps */
+    align-items: flex-end;
+}
+
+.step-right {
+    right: 0;
+    padding-left: 50px;
+    text-align: left;
+}
+
+.step-right .process-card {
+    align-items: flex-start;
+}
+
+.step-center {
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.step-center .process-card {
+    align-items: center;
+    margin: 0 auto;
+}
+
+/* Base Card Style */
+.process-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid #fff;
+    box-shadow:
+        0 10px 30px -5px rgba(15, 23, 42, 0.05),
+        0 4px 6px -2px rgba(15, 23, 42, 0.01);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: transform 0.3s ease;
+}
+
+.process-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.1);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 5px;
+    box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.2);
+}
+
+/* Specific Card Themes */
+.card-pink .card-icon {
+    background: linear-gradient(135deg, #ec4899, #e11d48);
+}
+
+.card-pink h3 {
+    color: #be185d;
+}
+
+.card-pink .step-number {
+    color: #fce7f3;
+    -webkit-text-stroke: 1px #ec4899;
+}
+
+.card-purple .card-icon {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+}
+
+.card-purple h3 {
+    color: #6d28d9;
+}
+
+.card-purple .step-number {
+    color: #ede9fe;
+    -webkit-text-stroke: 1px #8b5cf6;
+}
+
+.card-blue .card-icon {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+}
+
+.card-blue h3 {
+    color: #0369a1;
+}
+
+.card-blue .step-number {
+    color: #e0f2fe;
+    -webkit-text-stroke: 1px #3b82f6;
+}
+
+.card-teal .card-icon {
+    background: linear-gradient(135deg, #2dd4bf, #10b981);
+}
+
+.card-teal h3 {
+    color: #047857;
+}
+
+.card-teal .step-number {
+    color: #ccfbf1;
+    -webkit-text-stroke: 1px #2dd4bf;
+}
+
+
+.step-number {
+    position: absolute;
+    top: -20px;
+    font-size: 5rem;
+    font-weight: 900;
+    opacity: 0.3;
+    line-height: 1;
+    z-index: 0;
+}
+
+.step-left .step-number {
+    right: 20px;
+}
+
+.step-right .step-number {
+    left: 20px;
+}
+
+.step-center .step-number {
+    top: -40px;
+}
+
+.process-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+.process-card p {
+    color: #475569;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+
+    /* Straighten the snake on mobile */
+    .process-container {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        padding-left: 20px;
+        /* Line width offset */
+        margin-top: 50px;
+    }
+
+    .svg-container {
+        left: 30px;
+        /* Align line to left */
+        transform: none;
+        width: 10px;
+        /* Just a line */
+        height: 100%;
+    }
+
+    /* We hide the complex SVG curve and replace with simple vertical line on mobile */
+    .svg-container svg {
+        display: none;
+    }
+
+    .svg-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #ec4899, #8b5cf6, #3b82f6);
+        border-radius: 2px;
+    }
+
+    .process-step {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        top: auto !important;
+        /* Override absolute positioning */
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        padding: 0 0 0 40px;
+        text-align: left !important;
+    }
+
+    .process-card {
+        align-items: flex-start !important;
+        width: 100%;
+    }
+
+    .step-number {
+        display: none;
+    }
+
+    /* Clean up mobile view */
+}

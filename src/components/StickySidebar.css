@@ -1,0 +1,106 @@
+/* Sticky Sidebar Container */
+.sticky-sidebar {
+    position: fixed;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 9999;
+    /* Max Z-index */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Visibility Logic */
+.sticky-sidebar.visible {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+    pointer-events: auto;
+}
+
+.sticky-sidebar.hidden {
+    opacity: 0;
+    transform: translateY(-50%) translateX(50px);
+    /* Slide out to right */
+    pointer-events: none;
+}
+
+/* WhatsApp Icon Image */
+.sidebar-icon-link {
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.sidebar-icon-link:hover {
+    transform: scale(1.1);
+}
+
+.whatsapp-img {
+    width: 55px;
+    /* Increased size */
+    height: 55px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
+    display: block;
+}
+
+/* Enquire Now Button (Vertical Pill) */
+/* Enquire Now Button (Vertical Pill) */
+.enquire-btn {
+    background: linear-gradient(135deg, #0056b3 0%, #00c7b6 100%);
+    border: none;
+    border-radius: 50px;
+    width: 42px;
+    /* Slightly narrower than icon */
+    height: 120px;
+    /* Reduced height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
+    transition: transform 0.2s ease, filter 0.2s ease;
+    padding: 0;
+}
+
+.enquire-btn:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+}
+
+.enquire-btn span {
+    font-weight: 800;
+    color: #ffffff;
+    /* White text for gradient */
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    white-space: nowrap;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .sticky-sidebar {
+        right: 10px;
+    }
+
+    .whatsapp-img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .enquire-btn {
+        width: 38px;
+        height: 110px;
+    }
+
+    .enquire-btn span {
+        font-size: 0.6rem;
+        /* Reduced from 0.75rem */
+    }
+}

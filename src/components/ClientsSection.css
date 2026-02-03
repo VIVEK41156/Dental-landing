@@ -1,0 +1,155 @@
+/* Clients Section - Horizontal Gallery */
+.clients-section {
+    position: relative;
+    padding: 80px 0;
+    background: #0f172a;
+    /* Dark contrast section */
+    color: white;
+    overflow: hidden;
+    /* Hide horizontal overflow */
+    min-height: 100vh;
+    /* Full height for pinning */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.clients-header-wrapper {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 2;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.clients-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.highlight-text {
+    color: var(--accent-cyan);
+}
+
+.clients-subtitle {
+    font-size: 1.25rem;
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* Horizontal Container */
+.horizontal-scroll-wrapper {
+    display: flex;
+    gap: 60px;
+    padding-left: 10vw;
+    /* Start nicely indented */
+    padding-right: 10vw;
+    width: max-content;
+    /* Allow content to dictate width */
+    align-items: center;
+    height: 60vh;
+    /* Height for cards vertical centering */
+}
+
+/* 3D Glass Card */
+.client-card {
+    width: 350px;
+    /* Fixed Large Width */
+    height: 450px;
+    perspective: 1000px;
+    flex-shrink: 0;
+}
+
+.client-card-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* Text at bottom */
+    position: relative;
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    transition: transform 0.4s ease;
+    cursor: pointer;
+}
+
+.client-card:hover .client-card-inner {
+    transform: translateY(-20px) scale(1.02);
+}
+
+.client-icon-box {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.client-name {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+.client-desc {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.mobile-scroll-hint {
+    display: none;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .clients-section {
+        min-height: auto;
+        padding-bottom: 60px;
+    }
+
+    .clients-header-wrapper {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        margin-bottom: 40px;
+    }
+
+    .horizontal-scroll-wrapper {
+        flex-direction: column;
+        /* Vertical stack on mobile */
+        width: 100%;
+        height: auto;
+        padding: 0 20px;
+        gap: 30px;
+        transform: none !important;
+        /* Disable GSAP move */
+    }
+
+    .client-card {
+        width: 100%;
+        height: 300px;
+    }
+
+    .mobile-scroll-hint {
+        display: none;
+    }
+}

@@ -1,0 +1,196 @@
+/* Reviews Section - Single Slider */
+.reviews-section {
+    position: relative;
+    padding: 30px 0;
+    /* Compact padding */
+    /* Background Image */
+    background: linear-gradient(rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.2)), url('../assets/reviews-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.reviews-container {
+    width: 100%;
+    /* Full width for marquee */
+    max-width: 100%;
+}
+
+.reviews-header {
+    text-align: center;
+    margin-bottom: 20px;
+    /* Reduced margin */
+    padding: 0 20px;
+}
+
+.reviews-header h2 {
+    font-size: 2rem;
+    /* Smaller Header */
+    font-weight: 800;
+    color: #ffffff;
+    /* White text for contrast */
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(15, 23, 42, 0.1);
+}
+
+.reviews-header p {
+    color: #f1f5f9;
+    /* Light slate */
+    font-size: 1rem;
+    text-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
+}
+
+/* Slider Layout */
+.slider-window {
+    width: 100%;
+    max-width: 1200px;
+    /* Increased for desktop */
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    padding: 10px 0;
+}
+
+.slider-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide-item {
+    min-width: 50%;
+    /* Default Desktop: 50% width (2 items) */
+    padding: 0 15px;
+    /* Spacing */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+/* Single Item Container */
+.slide-content-single {
+    width: 100%;
+    /* max-width: 600px; Not needed if flex works well */
+}
+
+/* Review Card Design - Reference Style */
+.review-card {
+    background: white;
+    padding: 30px;
+    /* Compact padding */
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(15, 23, 42, 0.06);
+    border: none;
+    height: auto;
+    min-height: 200px;
+    /* Reduced min-height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.review-card-top {
+    margin-bottom: 15px;
+}
+
+.review-author-name {
+    font-size: 1.25rem;
+    /* Smaller name */
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 5px;
+    /* Space before stars */
+}
+
+.stars {
+    display: flex;
+    gap: 3px;
+}
+
+.review-card-body p {
+    font-size: 1.1rem;
+    /* Standard readable size */
+    font-style: italic;
+    color: #334155;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.review-divider {
+    height: 1px;
+    background: #e2e8f0;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-top: auto;
+}
+
+.review-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-location {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.review-tag {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--primary-green, #15803d);
+}
+
+/* Dots Navigation */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 40px;
+}
+
+.slider-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    /* Light Slate (Neutral) */
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
+}
+
+.slider-dot.active {
+    background: linear-gradient(135deg, #0056b3 0%, #00c7b6 100%);
+    transform: scale(1.1);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .slide-item {
+        min-width: 100%;
+        /* Switch back to single item */
+    }
+
+    .review-card {
+        padding: 30px;
+    }
+
+    .review-author-name {
+        font-size: 1.2rem;
+    }
+
+    .review-card-body p {
+        font-size: 1.1rem;
+    }
+
+    .review-card-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

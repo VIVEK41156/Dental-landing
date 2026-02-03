@@ -1,0 +1,82 @@
+/* Stats Stripe Styles */
+.stats-stripe {
+    background: var(--primary-blue);
+    /* Fallback */
+    /* Fixed undefined variable: changed --primary-dark to --dark-bg */
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-bg) 100%);
+    /* Reduced height: changed spacing-xl (3rem) to spacing-lg (2rem) */
+    padding: var(--spacing-lg) 0;
+    color: var(--white);
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+}
+
+.stats-stripe__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+    text-align: center;
+}
+
+.stats-stripe__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    /* Add subtle separator except for start/end if desired, 
+     or keep clean for modern look. Let's keep clean. */
+}
+
+/* Number Styling */
+.stats-stripe__number {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: var(--spacing-xs);
+    display: flex;
+    align-items: baseline;
+    background: linear-gradient(to bottom, #ffffff 30%, #e0f2fe 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.1));
+}
+
+.stats-stripe__number-suffix {
+    font-size: 2rem;
+    margin-left: 2px;
+    opacity: 0.9;
+    -webkit-text-fill-color: #e0f2fe;
+    /* Slight contrast for suffix */
+}
+
+/* Label Styling */
+.stats-stripe__label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 200px;
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .stats-stripe__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xl);
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-stripe__grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+
+    .stats-stripe__number {
+        font-size: 3rem;
+    }
+}

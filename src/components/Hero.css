@@ -1,0 +1,226 @@
+/* ===================================
+   HERO SECTION STYLES
+   =================================== */
+
+.hero {
+    position: relative;
+    min-height: auto;
+    /* Reduced from 100vh */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 80px 0 40px;
+    /* Reduced from 120px 0 60px */
+    /* Account for fixed header */
+    background: radial-gradient(circle at top right, #f0f9ff 0%, #fff 40%);
+}
+
+.hero__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: var(--spacing-2xl);
+}
+
+/* Typography */
+.hero__title {
+    margin-bottom: 20px;
+    /* Reduced from spacing-lg */
+    line-height: 1;
+    /* Tighter line height */
+}
+
+.hero__title-highlight {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 900;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    margin-bottom: 5px;
+    padding-bottom: 25px;
+    /* Added to make 'g' descender visible */
+    margin-top: -15px;
+    /* Pull up slightly */
+}
+
+.hero__title-sub {
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--gray-800);
+    display: block;
+    /* Ensure it behaves well */
+    margin-top: -10px;
+    /* Adjusted to sit closer to title */
+}
+
+.hero__description {
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-xl);
+    max-width: 600px;
+    line-height: 1.5;
+    /* Reduced from 1.7 */
+}
+
+/* Glass Paragraph Effect */
+.glass-text {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    border-left: 4px solid var(--accent-cyan);
+}
+
+/* Buttons */
+.hero__actions {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.hero__btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+.btn-outline:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+/* 3D Visualization Area */
+.hero__visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+    width: 100%;
+}
+
+.hero__form-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+/* Blended Text Background */
+.hero__blend-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15rem;
+    font-weight: 900;
+    color: rgba(6, 182, 212, 0.05);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1;
+    font-family: var(--font-heading);
+    /* Blend mode effect */
+    mix-blend-mode: multiply;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Glowing Backdrop */
+.hero__glow {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: var(--gradient-accent);
+    filter: blur(100px);
+    opacity: 0.15;
+    border-radius: 50%;
+    z-index: 0;
+    animation: pulse 4s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        opacity: 0.1;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 0.2;
+        transform: scale(1.1);
+    }
+}
+
+/* Responsive */
+/* Responsive */
+@media (max-width: 992px) {
+    .hero {
+        padding-top: 100px;
+        height: auto;
+        min-height: auto;
+        padding-bottom: 80px;
+    }
+
+    .hero__container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: var(--spacing-xl);
+    }
+
+    .hero__description {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        /* Centered for mobile balance */
+        font-size: 1rem;
+    }
+
+    .hero__actions {
+        justify-content: center;
+    }
+
+    .hero__visual {
+        /* Significantly increased height for mobile to let 3D model shine */
+        height: 50vh;
+        min-height: 400px;
+        order: -1;
+        margin-bottom: -20px;
+        /* Pull text slightly closer */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding-top: 90px;
+    }
+
+    .hero__title-highlight {
+        font-size: 2.5rem;
+        /* Better scaling for mobile */
+    }
+
+    .hero__title-sub {
+        font-size: 1.5rem;
+    }
+
+    .hero__visual {
+        height: 45vh;
+        /* ample space on small screens */
+        min-height: 350px;
+    }
+
+    .hero__blend-text {
+        display: none;
+        /* Hide confusing blend text on small screens */
+    }
+
+    .hero__btn {
+        width: 100%;
+    }
+}

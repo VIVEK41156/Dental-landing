@@ -1,0 +1,171 @@
+/* Clients Ring Section - Light Theme */
+.clients-ring-section {
+    position: relative;
+    padding: 60px 0;
+    /* Reduced padding */
+    background: #ffffff;
+    /* Light background */
+    /* Optional subtle gradient */
+    background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
+    color: #0f172a;
+    /* Dark text */
+    overflow: hidden;
+    min-height: 550px;
+    /* Reduced specific height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    perspective: 1200px;
+}
+
+.clients-ring-header {
+    text-align: center;
+    margin-bottom: 20px;
+    /* Reduced margin */
+    z-index: 10;
+    pointer-events: none;
+}
+
+.clients-ring-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #0f172a, #334155);
+    /* Dark gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.clients-ring-header p {
+    color: #64748b;
+    /* Slate 500 */
+    font-size: 1.1rem;
+}
+
+/* 3D Stage */
+.ring-perspective {
+    width: 100%;
+    height: 400px;
+    /* Reduced stage height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.ring-stage {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    /* Invisible interactive layer for dragging */
+    cursor: grab;
+    z-index: 5;
+}
+
+.ring-stage:active {
+    cursor: grabbing;
+}
+
+.ring-pivot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    /* The pivot point is 0,0 - cards will orbit this */
+}
+
+/* The Cards */
+.ring-card {
+    position: absolute;
+    top: -140px;
+    /* Half height to center vertically */
+    left: -125px;
+    /* Half width to center horizontally */
+    width: 250px;
+    height: 280px;
+    backface-visibility: hidden;
+    /* Or visible if we want to see backs */
+    /* Position is handled by JS logic */
+}
+
+.ring-card-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    /* Glossy Effect - Light Theme optimized */
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.1),
+        /* Softer shadow */
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+
+    transform: translateZ(20px);
+    /* Add slight depth to content vs card */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.ring-card:hover .ring-card-inner {
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+    transform: translateZ(20px) scale(1.05);
+    /* Pop out */
+}
+
+.ring-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(15, 23, 42, 0.2);
+}
+
+.ring-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.ring-card p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.4;
+}
+
+.ring-footer {
+    margin-top: 20px;
+    color: #64748b;
+    /* Slate 500 */
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .clients-ring-section {
+        overflow: hidden;
+        /* Force hide overflow */
+    }
+
+    .ring-perspective {
+        perspective: 800px;
+        transform: scale(0.7);
+        /* Scale down the whole 3D scene */
+    }
+}

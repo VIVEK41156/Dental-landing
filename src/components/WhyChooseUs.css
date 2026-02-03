@@ -1,0 +1,228 @@
+/* Why Choose Us - Horizontal Process Flow Style */
+.wcu-section {
+    position: relative;
+    padding: 100px 0;
+    min-height: 80vh;
+    /* Match Process Flow Background */
+    background-color: #f8fafc;
+    background-image:
+        linear-gradient(to bottom, rgba(248, 250, 252, 0.9), rgba(248, 250, 252, 0.95)),
+        url('../assets/process-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.wcu-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.wcu-header {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #0f172a;
+}
+
+.wcu-subheader {
+    font-size: 1.2rem;
+    color: #475569;
+    max-width: 800px;
+    margin: 0 auto 80px;
+    line-height: 1.6;
+}
+
+.wcu-footer-text {
+    margin-top: 60px;
+    padding: 20px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 12px;
+    color: #1e3a8a;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: inline-block;
+}
+
+/* Flow Track Container */
+.wcu-flow-track {
+    position: relative;
+    width: 100%;
+    /* height: 400px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* SVG Line Layer */
+.wcu-svg-layer {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    transform: translateY(-50%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.wcu-svg-layer svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* Cards Row */
+.wcu-cards-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    gap: 20px;
+}
+
+/* Card Style - Glassy & Vibrant */
+.wcu-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid #fff;
+    border-radius: 24px;
+    padding: 30px 20px;
+    width: 23%;
+    /* 4 cards = ~25% each */
+    min-width: 250px;
+    box-shadow:
+        0 10px 30px -5px rgba(15, 23, 42, 0.1),
+        0 4px 6px -2px rgba(15, 23, 42, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.wcu-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15);
+}
+
+.wcu-icon-box {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border: 3px solid transparent;
+    /* Set inline */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.wcu-icon {
+    font-size: 1.8rem;
+    color: #0f172a;
+}
+
+/* Specific Colors for Icons */
+.card-1 .wcu-icon {
+    color: #ec4899;
+}
+
+.card-2 .wcu-icon {
+    color: #8b5cf6;
+}
+
+.card-3 .wcu-icon {
+    color: #3b82f6;
+}
+
+.card-4 .wcu-icon {
+    color: #10b981;
+}
+
+.wcu-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #1e293b;
+}
+
+.wcu-card p {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* Mobile SVG hidden by default */
+.mobile-svg {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .wcu-cards-row {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .wcu-card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .wcu-cards-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 60px;
+        /* Space for connecting line */
+        padding-top: 40px;
+        /* Start lower */
+        perspective: 1000px;
+        /* Enable 3D space */
+    }
+
+    .wcu-card {
+        width: 100%;
+        max-width: 350px;
+        margin-bottom: 0px;
+        z-index: 2;
+        /* Sit above line */
+    }
+
+    /* Hide Desktop SVG specifically */
+    .desktop-svg {
+        display: none !important;
+    }
+
+    /* Show Mobile SVG */
+    .mobile-svg {
+        display: block !important;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: none;
+        /* preventing translateY(-50%) from base class */
+        pointer-events: none;
+    }
+
+    .wcu-flow-track {
+        min-height: 1200px;
+        /* Ensure height for vertical flow */
+    }
+
+    /* Adjust Footer Spacing */
+    .wcu-footer-text {
+        margin-top: 40px;
+    }
+}
