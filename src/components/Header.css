@@ -282,7 +282,8 @@
 /* Large Desktop */
 @media (min-width: 1024px) {
     .header__menu {
-        gap: var(--spacing-xl);
+        gap: 1.5rem;
+        /* Reduced from spacing-xl */
     }
 
     .header__menu-link {
@@ -302,8 +303,10 @@
 /* Extra Large Desktop */
 @media (min-width: 1440px) {
     .header__menu {
-        gap: 2.5rem;
+        gap: 2rem;
+        /* Reduced from 2.5rem */
     }
+
 
     .header__menu-link {
         font-size: 1.05rem;

@@ -1,7 +1,7 @@
 /* Reviews Section - Single Slider */
 .reviews-section {
     position: relative;
-    padding: 30px 0;
+    padding: 60px 0;
     /* Compact padding */
     /* Background Image */
     background: linear-gradient(rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.2)), url('../assets/reviews-bg.jpg');
@@ -66,12 +66,15 @@
     box-sizing: border-box;
     display: flex;
     justify-content: center;
+    align-items: stretch;
+    /* Ensure full height */
 }
 
 /* Single Item Container */
 .slide-content-single {
     width: 100%;
-    /* max-width: 600px; Not needed if flex works well */
+    height: 100%;
+    /* Fill height */
 }
 
 /* Review Card Design - Reference Style */
@@ -82,9 +85,9 @@
     border-radius: 12px;
     box-shadow: 0 2px 20px rgba(15, 23, 42, 0.06);
     border: none;
-    height: auto;
+    height: 100%;
+    /* Force equal height */
     min-height: 200px;
-    /* Reduced min-height */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -112,7 +115,7 @@
 .review-card-body p {
     font-size: 1.1rem;
     /* Standard readable size */
-    font-style: italic;
+    font-style: normal;
     color: #334155;
     line-height: 1.5;
     margin-bottom: 20px;

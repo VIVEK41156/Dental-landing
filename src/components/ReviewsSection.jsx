@@ -89,7 +89,7 @@ const ReviewCard = ({ review }) => (
 
         {/* Middle: Quote */}
         <div className="review-card-body">
-            <p>"{review.text}"</p>
+            <p>{review.text}</p>
         </div>
 
         {/* Divider */}

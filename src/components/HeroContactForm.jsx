@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './HeroContactForm.css';
 
@@ -11,8 +12,10 @@ const HeroContactForm = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        company: '',
+        countryCode: '+1',
         phone: '',
-        service: '',
+        message: '',
         agreedToTerms: false,
         utm_source: '',
         utm_medium: '',
@@ -20,37 +23,20 @@ const HeroContactForm = () => {
         utm_term: '',
         utm_content: ''
     });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState(null);
 
-    // Service options
-    const serviceOptions = [
-        'Local SEO for Dentists',
-        'On-Page SEO Optimization',
-        'Dental Content Marketing',
-        'Technical SEO',
-        'Trust & Authority Building'
-    ];
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
 
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-
-        // Get browser info
-        const browserInfo = {
-            userAgent: navigator.userAgent,
-            platform: navigator.platform,
-            language: navigator.language,
-            referrer: document.referrer || 'direct'
-        };
-
+        // Capture UTM parameters from URL
+        const queryParams = new URLSearchParams(window.location.search);
         setFormData(prev => ({
             ...prev,
-            utm_source: urlParams.get('utm_source') || 'direct',
-            utm_medium: urlParams.get('utm_medium') || '',
-            utm_campaign: urlParams.get('utm_campaign') || '',
-            utm_term: urlParams.get('utm_term') || '',
-            utm_content: urlParams.get('utm_content') || '',
-            browserInfo: JSON.stringify(browserInfo)
+            utm_source: queryParams.get('utm_source') || 'direct',
+            utm_medium: queryParams.get('utm_medium') || '',
+            utm_campaign: queryParams.get('utm_campaign') || '',
+            utm_term: queryParams.get('utm_term') || '',
+            utm_content: queryParams.get('utm_content') || ''
         }));
     }, []);
 
@@ -62,18 +48,32 @@ const HeroContactForm = () => {
         }));
     };
 
+    const navigate = useNavigate();
+
+    const [errorMessage, setErrorMessage] = useState('');
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         setSubmitStatus(null);
+        setErrorMessage('');
 
         try {
-            const webhookUrl = 'https://default08423cbb15b24cc9a5a6b7b2701a47.2b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/5a33e7f9a71e4e7a90c513c74b564157/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Yqhd34Oka_pOrg1AT2DPj5vzFV0IZ3lPBh9N37YIZAM';
+            const webhookUrl = 'https://default08423cbb15b24cc9a5a6b7b2701a47.2b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e48ba7224a61418ca63a939c1fffa818/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uuaiFx4x8TLydB4CRIy00EM984GVe-hu7Fma7vnEthI';
 
             const submissionData = {
-                ...formData,
-                timestamp: new Date().toISOString(),
-                source: 'Dental Landing Page - Hero Form'
+                name: formData.name,
+                email: formData.email,
+                company: formData.company || '',
+                countryCode: formData.countryCode,
+                phone: `${formData.countryCode} ${formData.phone}`, // Send full number
+                message: formData.message || '',
+                agreeToTerms: formData.agreedToTerms,
+                utm_source: formData.utm_source || '',
+                utm_medium: formData.utm_medium || '',
+                utm_campaign: formData.utm_campaign || '',
+                utm_term: formData.utm_term || '',
+                utm_content: formData.utm_content || ''
             };
 
             const response = await fetch(webhookUrl, {
@@ -85,21 +85,18 @@ const HeroContactForm = () => {
             if (response.ok) {
                 setSubmitStatus('success');
                 setTimeout(() => {
-                    setFormData(prev => ({
-                        ...prev,
-                        name: '',
-                        email: '',
-                        phone: '',
-                        service: '',
-                        agreedToTerms: false
-                    }));
-                    setSubmitStatus(null);
-                }, 3000);
+                    navigate('/thank-you');
+                }, 1000);
             } else {
+                const errorText = `Server Error: ${response.status}`;
+                console.error('Form submission failed:', response.status, response.statusText);
+                setErrorMessage(errorText);
                 setSubmitStatus('error');
             }
         } catch (error) {
             console.error('Form submission error:', error);
+            const errorText = `Network Error: ${error.message}`;
+            setErrorMessage(errorText);
             setSubmitStatus('error');
         } finally {
             setIsSubmitting(false);
@@ -119,7 +116,7 @@ const HeroContactForm = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Your Name *"
+                        placeholder="Name"
                         required
                         className="hero-form__input"
                     />
@@ -131,34 +128,54 @@ const HeroContactForm = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Email *"
+                        placeholder="Email"
                         required
                         className="hero-form__input"
                     />
+                    <input
+                        type="text"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleChange}
+                        placeholder="Company"
+                        className="hero-form__input"
+                    />
+                </div>
+
+                <div className="hero-form__row phone-row">
+                    <select
+                        name="countryCode"
+                        value={formData.countryCode}
+                        onChange={handleChange}
+                        className="hero-form__select country-select"
+                    >
+                        <option value="+1">+1</option>
+                        <option value="+91">+91</option>
+                        <option value="+44">+44</option>
+                        <option value="+61">+61</option>
+                        <option value="+81">+81</option>
+                    </select>
                     <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="Phone *"
+                        placeholder="Enter Phone Number"
                         required
                         className="hero-form__input"
                     />
                 </div>
 
                 <div className="hero-form__field">
-                    <select
-                        name="service"
-                        value={formData.service}
+                    <textarea
+                        name="message"
+                        value={formData.message}
                         onChange={handleChange}
-                        required
-                        className="hero-form__select"
-                    >
-                        <option value="">Select Service Interested In *</option>
-                        {serviceOptions.map(opt => (
-                            <option key={opt} value={opt}>{opt}</option>
-                        ))}
-                    </select>
+                        placeholder="Message (Min 10 chars)"
+                        rows="3"
+                        minLength="10"
+                        className="hero-form__textarea"
+                    ></textarea>
                 </div>
 
                 <label className="hero-form__terms">
@@ -183,7 +200,9 @@ const HeroContactForm = () => {
                 </motion.button>
 
                 {submitStatus === 'error' && (
-                    <p className="hero-form__error">Submission failed. Please try again.</p>
+                    <p className="hero-form__error" style={{ color: '#ef4444', marginTop: '10px', fontSize: '0.9rem' }}>
+                        Submission failed: {errorMessage}. Please try again.
+                    </p>
                 )}
             </form>
         </div>

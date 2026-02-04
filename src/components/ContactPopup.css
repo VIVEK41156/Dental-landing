@@ -24,9 +24,11 @@
 .contact-popup {
     position: relative;
     width: 100%;
-    max-width: 550px;
+    max-width: 420px;
+    /* Reduced from 550px for compacter look */
     background: var(--white);
-    border-radius: var(--radius-2xl);
+    border-radius: 24px;
+    /* Slightly more rounded */
     /* Gradient Border Effect */
     background-image: linear-gradient(#fff, #fff), var(--gradient-primary);
     background-origin: border-box;
@@ -34,56 +36,61 @@
     border: 2px solid transparent;
 
     box-shadow: var(--shadow-2xl), 0 0 60px rgba(6, 182, 212, 0.15);
-    padding: var(--spacing-xl);
+    padding: 24px;
+    /* Reduced padding */
     transform-style: preserve-3d;
     perspective: 1000px;
-    /* Prevent scrolling inside popup */
-    max-height: auto;
-    overflow: visible;
+    max-height: 90vh;
+    /* Ensure it fits in viewport */
+    overflow-y: auto;
+    /* Allow scroll if needed on short screens */
+    overflow-x: hidden;
 }
 
 /* Close Button */
 .contact-popup__close {
     position: absolute;
-    top: -15px;
-    right: -15px;
-    width: 36px;
-    height: 36px;
+    top: 10px;
+    /* Moved inside slightly */
+    right: 10px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--white);
-    border: 2px solid var(--gray-100);
-    border-radius: var(--radius-full);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    /* Thinner border */
+    border-radius: 50%;
     cursor: pointer;
     transition: all var(--transition-base);
     color: var(--gray-500);
     z-index: 10;
-    box-shadow: var(--shadow-sm);
 }
 
 .contact-popup__close:hover {
-    background: var(--gray-50);
+    background: #fee2e2;
     color: #ef4444;
-    border-color: #fee2e2;
-    transform: rotate(90deg) scale(1.1);
+    border-color: #fecaca;
+    transform: rotate(90deg);
 }
 
 /* Header */
 .contact-popup__header {
     text-align: center;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 20px;
 }
 
 .contact-popup__title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    /* Smaller title */
     margin-bottom: 0.25rem;
     font-weight: 800;
     letter-spacing: -0.02em;
 }
 
 .contact-popup__subtitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--gray-500);
 }
 
@@ -91,14 +98,16 @@
 .contact-popup__form {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 12px;
+    /* Tighter gap */
 }
 
 /* Bento Grid Layout */
 .contact-popup__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-sm);
+    gap: 10px;
+    /* Tighter gap */
 }
 
 .contact-popup__field--full {
@@ -113,12 +122,15 @@
 .contact-popup__input,
 .contact-popup__select {
     width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
+    padding: 0.6rem 0.9rem;
+    /* Reduced padding */
+    font-size: 0.9rem;
+    /* Slightly smaller font */
     color: var(--gray-800);
     background: var(--gray-50);
     border: 1px solid var(--gray-200);
-    border-radius: var(--radius-lg);
+    border-radius: 12px;
+    /* Explicit cute radius */
     transition: all var(--transition-base);
     outline: none;
 }
@@ -220,4 +232,69 @@
     .contact-popup__title {
         font-size: 1.5rem;
     }
+}
+
+/* New CSS for standardized fields */
+.phone-row-popup {
+    display: grid !important;
+    grid-template-columns: 80px 1fr;
+    gap: 10px;
+}
+
+.country-select-popup {
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    padding-right: 0.5rem;
+    /* override standard select padding */
+}
+
+.contact-popup__textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    color: var(--gray-800);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+    outline: none;
+    resize: none;
+    font-family: var(--font-primary);
+}
+
+.contact-popup__textarea:focus {
+    background: var(--white);
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+    .phone-row-popup {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Space between checkbox and text */
+.terms-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* Increased gap as requested */
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    cursor: pointer;
+}
+
+.terms-input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-blue);
+    cursor: pointer;
+}
+
+.terms-link {
+    color: var(--primary-blue);
+    text-decoration: underline;
+    font-weight: 500;
 }

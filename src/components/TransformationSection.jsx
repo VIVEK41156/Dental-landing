@@ -211,9 +211,7 @@ const TransformationSection = () => {
                     />
                 </div>
 
-                <p className="transformation-disclaimer">
-                    * Results vary based on competition, location, and existing website condition. These are representative examples, not guarantees.
-                </p>
+
             </div>
         </section>
     );

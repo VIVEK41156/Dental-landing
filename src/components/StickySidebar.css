@@ -54,15 +54,17 @@
     border-radius: 50px;
     width: 42px;
     /* Slightly narrower than icon */
-    height: 120px;
-    /* Reduced height */
+    min-height: 140px;
+    /* Increased height for padding */
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
     transition: transform 0.2s ease, filter 0.2s ease;
-    padding: 0;
+    padding: 20px 0;
+    /* Added vertical padding */
 }
 
 .enquire-btn:hover {

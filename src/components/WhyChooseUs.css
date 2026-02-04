@@ -168,6 +168,11 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
+    .wcu-section {
+        padding: 60px 0;
+        /* Standardized Mobile/Tablet Gap */
+    }
+
     .wcu-cards-row {
         flex-wrap: wrap;
         justify-content: center;

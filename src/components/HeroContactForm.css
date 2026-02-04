@@ -69,10 +69,42 @@
     background: #fff;
 }
 
+/* Phone Row Specifics */
+.phone-row {
+    grid-template-columns: 80px 1fr !important;
+    /* Fixed width for country code */
+}
+
+.country-select {
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+}
+
+.hero-form__textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+    resize: none;
+}
+
+.hero-form__textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    background: #fff;
+}
+
 .hero-form__terms {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    /* Center aligns checkbox and text horizontally */
+    gap: 10px;
+    /* Increased space */
     font-size: 0.85rem;
     color: var(--gray-600);
     cursor: pointer;
@@ -99,8 +131,15 @@
 }
 
 @media (max-width: 480px) {
-    .hero-form__row {
-        grid-template-columns: 1fr;
+
+    .hero-form__row,
+    .phone-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Reset country select to full width on mobile if stacked */
+    .country-select {
+        text-align: left;
     }
 
     .hero-form-card {

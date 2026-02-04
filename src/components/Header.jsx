@@ -72,10 +72,17 @@ const Header = ({ onContactClick }) => {
   // Handle menu item click
   const handleMenuClick = (href) => {
     setIsMobileMenuOpen(false);
-    // Smooth scroll to section
+    // Smooth scroll with offset
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     }
   };
 

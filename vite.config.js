@@ -1,9 +1,20 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
-  base: './Dental-landing/',
+  base: './', // Use relative base for maximum compatibility
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'gsap-vendor': ['gsap'],
+          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
+          'ui-vendor': ['framer-motion', 'lucide-react']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000 // Increase warning limit for large chunks
+  }
 })
-

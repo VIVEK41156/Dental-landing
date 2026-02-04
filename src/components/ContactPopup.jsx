@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import './ContactPopup.css';
 
@@ -11,8 +12,10 @@ const ContactPopup = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        company: '',
         phone: '',
-        service: '',
+        countryCode: '+1',
+        message: '',
         agreedToTerms: false,
         utm_source: '',
         utm_medium: '',
@@ -20,71 +23,28 @@ const ContactPopup = ({ isOpen, onClose }) => {
         utm_term: '',
         utm_content: ''
     });
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
-    const [utmSource, setUtmSource] = useState('');
 
-    // Service options
-    const serviceOptions = [
-        'Local SEO for Dentists',
-        'On-Page SEO Optimization',
-        'Dental Content Marketing',
-        'Technical SEO',
-        'Trust & Authority Building'
-    ];
-
-    // Capture UTM source from URL or browser info
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-
-        // Get browser info
-        const browserInfo = {
-            userAgent: navigator.userAgent,
-            platform: navigator.platform,
-            language: navigator.language,
-            referrer: document.referrer || 'direct'
-        };
-
-        // Store browser info for form submission
-        setFormData(prev => ({
-            ...prev,
-            utm_source: urlParams.get('utm_source') || 'direct',
-            utm_medium: urlParams.get('utm_medium') || '',
-            utm_campaign: urlParams.get('utm_campaign') || '',
-            utm_term: urlParams.get('utm_term') || '',
-            utm_content: urlParams.get('utm_content') || '',
-            browserInfo: JSON.stringify(browserInfo)
-        }));
-
-        setUtmSource(urlParams.get('utm_source') || 'direct');
-    }, []);
-
-    // Close popup on Escape key
-    useEffect(() => {
-        const handleEscape = (e) => {
-            if (e.key === 'Escape' && isOpen) {
-                onClose();
-            }
-        };
-
-        document.addEventListener('keydown', handleEscape);
-        return () => document.removeEventListener('keydown', handleEscape);
-    }, [isOpen, onClose]);
-
-    // Prevent body scroll when popup is open
     useEffect(() => {
         if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
+            // Reset status when opened
+            setSubmitStatus(null);
 
-        return () => {
-            document.body.style.overflow = 'unset';
-        };
+            // Capture UTM parameters
+            const queryParams = new URLSearchParams(window.location.search);
+            setFormData(prev => ({
+                ...prev,
+                utm_source: queryParams.get('utm_source') || '',
+                utm_medium: queryParams.get('utm_medium') || '',
+                utm_campaign: queryParams.get('utm_campaign') || '',
+                utm_term: queryParams.get('utm_term') || '',
+                utm_content: queryParams.get('utm_content') || ''
+            }));
+        }
     }, [isOpen]);
 
-    // Handle input changes
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
@@ -93,6 +53,8 @@ const ContactPopup = ({ isOpen, onClose }) => {
         }));
     };
 
+    const navigate = useNavigate();
+
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -100,25 +62,23 @@ const ContactPopup = ({ isOpen, onClose }) => {
         setSubmitStatus(null);
 
         try {
-            // Power Automate webhook URL (placeholder - user will update later)
             // Power Automate webhook URL
-            const webhookUrl = 'https://default08423cbb15b24cc9a5a6b7b2701a47.2b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/5a33e7f9a71e4e7a90c513c74b564157/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Yqhd34Oka_pOrg1AT2DPj5vzFV0IZ3lPBh9N37YIZAM';
+            const webhookUrl = 'https://default08423cbb15b24cc9a5a6b7b2701a47.2b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e48ba7224a61418ca63a939c1fffa818/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uuaiFx4x8TLydB4CRIy00EM984GVe-hu7Fma7vnEthI';
 
             // Prepare submission data
             const submissionData = {
                 name: formData.name,
                 email: formData.email,
-                phone: formData.phone,
-                service: formData.service,
-                agreedToTerms: formData.agreedToTerms,
-                utm_source: formData.utm_source,
-                utm_medium: formData.utm_medium,
-                utm_campaign: formData.utm_campaign,
-                utm_term: formData.utm_term,
-                utm_content: formData.utm_content,
-                browserInfo: formData.browserInfo,
-                timestamp: new Date().toISOString(),
-                source: 'Dental Landing Page - Contact Form'
+                company: formData.company || '',
+                countryCode: formData.countryCode,
+                phone: `${formData.countryCode} ${formData.phone}`, // Send full number
+                message: formData.message || '',
+                agreeToTerms: formData.agreedToTerms,
+                utm_source: formData.utm_source || '',
+                utm_medium: formData.utm_medium || '',
+                utm_campaign: formData.utm_campaign || '',
+                utm_term: formData.utm_term || '',
+                utm_content: formData.utm_content || ''
             };
 
             // Submit to Power Automate
@@ -132,23 +92,13 @@ const ContactPopup = ({ isOpen, onClose }) => {
 
             if (response.ok) {
                 setSubmitStatus('success');
-                // Reset form after 2 seconds
+                // Close popup after delay
                 setTimeout(() => {
-                    setFormData({
-                        name: '',
-                        email: '',
-                        phone: '',
-                        service: '',
-                        agreedToTerms: false,
-                        utm_source: utmSource, // Keep original source
-                        utm_medium: formData.utm_medium,
-                        utm_campaign: formData.utm_campaign,
-                        browserInfo: formData.browserInfo
-                    });
-                    setSubmitStatus(null);
                     onClose();
-                }, 2000);
+                    navigate('/thank-you');
+                }, 1000);
             } else {
+                console.error('Form submission failed:', response.status, response.statusText);
                 setSubmitStatus('error');
             }
         } catch (error) {
@@ -236,7 +186,7 @@ const ContactPopup = ({ isOpen, onClose }) => {
                                         value={formData.name}
                                         onChange={handleChange}
                                         className="contact-popup__input"
-                                        placeholder="Your Name *"
+                                        placeholder="Name"
                                         required
                                     />
                                 </div>
@@ -250,47 +200,60 @@ const ContactPopup = ({ isOpen, onClose }) => {
                                         value={formData.email}
                                         onChange={handleChange}
                                         className="contact-popup__input"
-                                        placeholder="Email Address *"
+                                        placeholder="Email"
                                         required
                                     />
                                 </div>
 
-                                {/* Phone Field - Half Width */}
+                                {/* Company Field - Half Width */}
                                 <div className="contact-popup__field contact-popup__field--half">
                                     <input
+                                        type="text"
+                                        id="company"
+                                        name="company"
+                                        value={formData.company}
+                                        onChange={handleChange}
+                                        className="contact-popup__input"
+                                        placeholder="Company"
+                                    />
+                                </div>
+
+                                {/* Phone Field - Full Width with IDD */}
+                                <div className="contact-popup__field contact-popup__field--full phone-row-popup">
+                                    <select
+                                        name="countryCode"
+                                        value={formData.countryCode}
+                                        onChange={handleChange}
+                                        className="contact-popup__select country-select-popup"
+                                    >
+                                        <option value="+1">+1</option>
+                                        <option value="+91">+91</option>
+                                        <option value="+44">+44</option>
+                                        <option value="+61">+61</option>
+                                        <option value="+81">+81</option>
+                                    </select>
+                                    <input
                                         type="tel"
-                                        id="phone"
                                         name="phone"
                                         value={formData.phone}
                                         onChange={handleChange}
                                         className="contact-popup__input"
-                                        placeholder="Phone Number *"
+                                        placeholder="Enter Phone Number"
                                         required
                                     />
                                 </div>
 
-                                {/* Service Dropdown - Full Width */}
+                                {/* Message Field - Full Width */}
                                 <div className="contact-popup__field contact-popup__field--full">
-                                    <div className="contact-popup__select-wrapper">
-                                        <select
-                                            id="service"
-                                            name="service"
-                                            value={formData.service}
-                                            onChange={handleChange}
-                                            className="contact-popup__select"
-                                            required
-                                        >
-                                            <option value="">Select Service Interested In *</option>
-                                            {serviceOptions.map((service) => (
-                                                <option key={service} value={service}>
-                                                    {service}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <svg className="contact-popup__select-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                                        </svg>
-                                    </div>
+                                    <textarea
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        className="contact-popup__textarea"
+                                        placeholder="Message (Min 10 chars)"
+                                        rows="2"
+                                        minLength="10"
+                                    ></textarea>
                                 </div>
                             </div>
 
@@ -337,7 +300,7 @@ const ContactPopup = ({ isOpen, onClose }) => {
                                 ) : submitStatus === 'error' ? (
                                     'Error - Retry'
                                 ) : (
-                                    'Send Message'
+                                    'SUBMIT'
                                 )}
                             </motion.button>
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ShieldCheck, Check } from 'lucide-react';
@@ -76,13 +76,14 @@ const TrustSection = () => {
                 <div className="trust-grid">
                     {/* Left Column: Authority Building */}
                     <div className="trust-col trust-col--left" ref={leftColRef}>
-                        <div className="trust-icon-box">
-                            <ShieldCheck size={48} className="trust-main-icon" />
+                        <div className="trust-header-row">
+                            <div className="trust-icon-box">
+                                <ShieldCheck size={32} className="trust-main-icon" />
+                            </div>
+                            <h2 className="trust-title">
+                                Trust & Authority <span className="text-slate-600">Building</span>
+                            </h2>
                         </div>
-                        <h2 className="trust-title">
-                            Trust & Authority <br />
-                            <span className="text-slate-600">Building</span>
-                        </h2>
                         <ul className="authority-list">
                             <li>
                                 <div className="dot"></div>
