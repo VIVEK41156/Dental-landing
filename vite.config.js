@@ -1,8 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
 export default defineConfig({
-  base: './', // Use relative base for maximum compatibility
+  base: '/Updated-landing/',
   plugins: [react()],
   build: {
     rollupOptions: {
@@ -15,6 +12,6 @@ export default defineConfig({
         }
       }
     },
-    chunkSizeWarningLimit: 1000 // Increase warning limit for large chunks
+    chunkSizeWarningLimit: 1000
   }
 })
